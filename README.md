@@ -7,7 +7,7 @@ NBT (Named Binary Tag) library for Zig 0.16.0.
 Add the dependency with `zig fetch`:
 
 ```sh
-zig fetch --save git+https://github.com/VantStudios/Nbt.git
+zig fetch --save git+https://github.com/tecton-mc/Nbt.git
 ```
 
 Then in your `build.zig`:
