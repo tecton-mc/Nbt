@@ -95,7 +95,7 @@ pub const Tag = union(TagType) {
         const Int8 = @import("BinaryStream").Int8;
 
         const tag_type_raw = try Int8.read(stream);
-        const tag_type: TagType = @enumFromInt(@as(u8, @bitCast(tag_type_raw)));
+        const tag_type: TagType = @fromBackingInt(@as(u8, @bitCast(tag_type_raw)));
         const read_options = ReadWriteOptions{
             .name = options.name,
             .tag_type = false,

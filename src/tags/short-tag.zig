@@ -33,7 +33,7 @@ pub const ShortTag = struct {
     pub fn read(stream: *BinaryStream, allocator: std.mem.Allocator, options: ReadWriteOptions) !ShortTag {
         if (options.tag_type) {
             const read_type = try Int8.read(stream);
-            if (read_type != @intFromEnum(TagType.Short)) {
+            if (read_type != @backingInt(TagType.Short)) {
                 return error.InvalidTagType;
             }
         }
@@ -63,7 +63,7 @@ pub const ShortTag = struct {
 
     pub fn write(stream: *BinaryStream, value: ShortTag, options: ReadWriteOptions) !void {
         if (options.tag_type) {
-            try Int8.write(stream, @intFromEnum(TagType.Short));
+            try Int8.write(stream, @backingInt(TagType.Short));
         }
 
         if (options.name) {

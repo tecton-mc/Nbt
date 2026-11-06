@@ -29,13 +29,13 @@ pub const LongTag = struct {
     }
 
     pub fn toJSON(self: LongTag, allocator: std.mem.Allocator) ![]const u8 {
-        return try std.fmt.allocPrint(allocator, "{}n", .{self.value});
+        return try allocator.print("{}n", .{self.value});
     }
 
     pub fn read(stream: *BinaryStream, allocator: std.mem.Allocator, options: ReadWriteOptions) !LongTag {
         if (options.tag_type) {
             const read_type = try Int8.read(stream);
-            if (read_type != @intFromEnum(TagType.Long)) {
+            if (read_type != @backingInt(TagType.Long)) {
                 return error.InvalidTagType;
             }
         }
@@ -68,7 +68,7 @@ pub const LongTag = struct {
 
     pub fn write(stream: *BinaryStream, value: LongTag, options: ReadWriteOptions) !void {
         if (options.tag_type) {
-            try Int8.write(stream, @intFromEnum(TagType.Long));
+            try Int8.write(stream, @backingInt(TagType.Long));
         }
 
         if (options.name) {

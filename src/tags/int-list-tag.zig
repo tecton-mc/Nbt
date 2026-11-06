@@ -36,7 +36,7 @@ pub const IntListTag = struct {
     pub fn read(stream: *BinaryStream, allocator: std.mem.Allocator, options: ReadWriteOptions) !IntListTag {
         if (options.tag_type) {
             const read_type = try Int8.read(stream);
-            if (read_type != @intFromEnum(TagType.IntList)) {
+            if (read_type != @backingInt(TagType.IntList)) {
                 return error.InvalidTagType;
             }
         }
@@ -80,7 +80,7 @@ pub const IntListTag = struct {
 
     pub fn write(stream: *BinaryStream, value: IntListTag, options: ReadWriteOptions) !void {
         if (options.tag_type) {
-            try Int8.write(stream, @intFromEnum(TagType.IntList));
+            try Int8.write(stream, @backingInt(TagType.IntList));
         }
 
         if (options.name) {

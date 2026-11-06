@@ -36,7 +36,7 @@ pub const LongListTag = struct {
         errdefer allocator.free(result);
 
         for (self.value, 0..) |v, i| {
-            result[i] = try std.fmt.allocPrint(allocator, "{}n", .{v});
+            result[i] = try allocator.print("{}n", .{v});
         }
         return result;
     }
@@ -44,7 +44,7 @@ pub const LongListTag = struct {
     pub fn read(stream: *BinaryStream, allocator: std.mem.Allocator, options: ReadWriteOptions) !LongListTag {
         if (options.tag_type) {
             const read_type = try Int8.read(stream);
-            if (read_type != @intFromEnum(TagType.LongList)) {
+            if (read_type != @backingInt(TagType.LongList)) {
                 return error.InvalidTagType;
             }
         }
@@ -87,7 +87,7 @@ pub const LongListTag = struct {
 
     pub fn write(stream: *BinaryStream, value: LongListTag, options: ReadWriteOptions) !void {
         if (options.tag_type) {
-            try Int8.write(stream, @intFromEnum(TagType.LongList));
+            try Int8.write(stream, @backingInt(TagType.LongList));
         }
 
         if (options.name) {

@@ -71,7 +71,7 @@ pub const CompoundTag = struct {
     pub fn read(stream: *BinaryStream, allocator: std.mem.Allocator, options: ReadWriteOptions) !CompoundTag {
         if (options.tag_type) {
             const read_type = try Int8.read(stream);
-            if (read_type != @intFromEnum(TagType.Compound)) {
+            if (read_type != @backingInt(TagType.Compound)) {
                 return error.InvalidTagType;
             }
         }
@@ -131,7 +131,7 @@ pub const CompoundTag = struct {
 
     pub fn write(stream: *BinaryStream, value: *const CompoundTag, options: ReadWriteOptions) !void {
         if (options.tag_type) {
-            try Int8.write(stream, @intFromEnum(TagType.Compound));
+            try Int8.write(stream, @backingInt(TagType.Compound));
         }
 
         if (options.name) {
@@ -159,6 +159,6 @@ pub const CompoundTag = struct {
             try entry.value_ptr.write(stream, child_options);
         }
 
-        try Int8.write(stream, @intFromEnum(TagType.End));
+        try Int8.write(stream, @backingInt(TagType.End));
     }
 };

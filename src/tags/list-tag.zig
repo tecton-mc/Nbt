@@ -50,7 +50,7 @@ pub const ListTag = struct {
     pub fn read(stream: *BinaryStream, allocator: std.mem.Allocator, options: ReadWriteOptions) !ListTag {
         if (options.tag_type) {
             const read_type = try Int8.read(stream);
-            if (read_type != @intFromEnum(TagType.List)) {
+            if (read_type != @backingInt(TagType.List)) {
                 return error.InvalidTagType;
             }
         }
@@ -58,7 +58,7 @@ pub const ListTag = struct {
         const name = try readName(stream, allocator, options);
 
         const element_type_raw = try Int8.read(stream);
-        const element_type: TagType = @enumFromInt(@as(u8, @bitCast(element_type_raw)));
+        const element_type: TagType = @fromBackingInt(@as(u8, @bitCast(element_type_raw)));
 
         const length: u32 = if (options.varint)
             @bitCast(try ZigZag.read(stream))
@@ -106,7 +106,7 @@ pub const ListTag = struct {
 
     pub fn write(stream: *BinaryStream, value: ListTag, options: ReadWriteOptions) !void {
         if (options.tag_type) {
-            try Int8.write(stream, @intFromEnum(TagType.List));
+            try Int8.write(stream, @backingInt(TagType.List));
         }
 
         if (options.name) {
@@ -127,7 +127,7 @@ pub const ListTag = struct {
         else
             value.value[0].getType();
 
-        try Int8.write(stream, @bitCast(@intFromEnum(element_type)));
+        try Int8.write(stream, @bitCast(@backingInt(element_type)));
 
         const length: i32 = @intCast(value.value.len);
         if (options.varint) {

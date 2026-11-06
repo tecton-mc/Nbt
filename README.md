@@ -1,6 +1,6 @@
 # Nbt
 
-NBT (Named Binary Tag) library for Zig 0.16.0.
+NBT (Named Binary Tag) library for Zig 0.17.0
 
 ## Installation
 
@@ -27,8 +27,6 @@ exe.root_module.addImport("nbt", nbt_dep.module("nbt"));
 const nbt = @import("nbt");
 ```
 
-
 ## License
 
 [MIT](LICENCE)
-
