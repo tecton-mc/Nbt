@@ -5,7 +5,8 @@
     .minimum_zig_version = "0.17.0",
     .dependencies = .{
         .BinaryStream = .{
-            .path = "git+https://github.com/tecton-mc/BinaryStream.git#eeb1f51fc8671a400326b3f251c4d939ca3706c7",
+            .url = "git+https://github.com/tecton-mc/BinaryStream.git#eeb1f51fc8671a400326b3f251c4d939ca3706c7",
+            .hash = "BinaryStream-0.0.0-gn8mmutlAQBoMDwXz2kdWZrOgsQ5T0AFeoYRGs_yMDVa",
         },
     },
     .paths = .{
